@@ -2,12 +2,20 @@ const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 let w = 0;
 let h = 0;
+let dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
 let stars1 = [];
 let stars2 = [];
 let stars3 = [];
 function resize() {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
+  dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  w = window.innerWidth;
+  h = window.innerHeight;
+  canvas.style.width = w + "px";
+  canvas.style.height = h + "px";
+  canvas.width = Math.round(w * dpr);
+  canvas.height = Math.round(h * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.imageSmoothingEnabled = false;
   initStars();
 }
 resize();
